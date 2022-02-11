@@ -1,0 +1,69 @@
+server:
+  port: 18090
+  # 数据源配置
+  datasource:
+    ds1: #数据源1
+      driver-class-name: com.mysql.cj.jdbc.Driver # mysql的驱动你可以配置别的关系型数据库
+      jdbc-url: jdbc:mysql://127.0.0.1:3306/db1 #数据源地址
+      username: root # 用户名
+      password: 123456 # 密码
+    ds2: # 数据源2
+      driver-class-name: com.mysql.cj.jdbc.Driver # mysql的驱动你可以配置别的关系型数据库
+      jdbc-url: jdbc:mysql://127.0.0.1:3306/db2 #数据源地址
+      username: root # 用户名
+      password: 123456 # 密码
+management:
+  security:
+    enabled: false
+
+
+xxl:
+  job:
+    # 执行器通讯TOKEN [选填]：非空时启用；
+    accessToken:
+    admin:
+      #调度中心部署跟地址：如调度中心集群部署存在多个地址则用逗号分隔。
+      #执行器将会使用该地址进行"执行器心跳注册"和"任务结果回调"。
+      addresses: http://10.218.223.168:18080/xxl-job-admin/
+
+    #分别配置执行器的名称、ip地址、端口号
+    #注意：如果配置多个执行器时，防止端口冲突
+    executor:
+      appname: config-platform-dev
+      ip: 
+      port: 19999
+
+      #执行器运行日志文件存储的磁盘位置，需要对该路径拥有读写权限
+      logpath: /data/applogs/xxl-job/jobhandler
+      #执行器Log文件定期清理功能，指定日志保存天数，日志文件过期自动删除。限制至少保持3天，否则功能不生效；
+      #-1表示永不删除
+      logretentiondays: -1
+
+spring:
+  application:
+    name: service-provider #服务名称--调用的时候根据名称来调用该服务的方法
+  boot:
+    admin:
+      url: http://127.0.0.1:18080/
+  redis:
+    database: 0 # Redis数据库索引（默认为0）  
+    host: 127.0.0.1 # Redis服务器地址 
+    port: 6379 # Redis服务器连接端口
+    password:
+    jedis:
+      pool:
+        #连接池最大连接数（使用负值表示没有限制）
+        max-active: 8
+        #连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: -1
+        #连接池中的最大空闲连接
+        max-idle: 8
+        #连接池中的最小空闲连接
+        min-idle: 0
+    #连接超时时间（毫秒）
+    timeout: 30000
+eureka:
+  client:
+    serviceUrl: #注册中心的注册地址
+      defaultZone: http://192.168.72.152:8081/eureka/
+

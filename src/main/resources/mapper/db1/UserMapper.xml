@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.practice.mapper.UserMapper">
+    <select id="selectUserByName" resultType="com.example.practice.dao.UserDao">
+       select * from user where username = #{name}
+   </select>
+    
+    <select id="selectRoleByUserId" resultType="com.example.practice.dao.RoleDao">
+       SELECT
+            role.id,
+            role.roleName
+        FROM
+            role
+        JOIN r_u ON r_u.roleId = role.id
+        WHERE
+            r_u.userId = #{userId}
+   </select>
+</mapper>
